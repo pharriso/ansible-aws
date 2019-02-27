@@ -1,0 +1,72 @@
+---
+
+- name: create demo vpc
+  ec2_vpc_net:
+    name: "{{ vpc_name }}"
+    cidr_block: "{{ vpc_cidr }}"
+    region: "{{ ec2_region }}"
+  register: vpc
+
+- name: create subnet
+  ec2_vpc_subnet:
+    state: present
+    vpc_id: "{{ vpc.vpc.id }}"
+    cidr: "{{ vpc_cidr }}"
+    region: "{{ ec2_region }}"
+  register: subnet
+
+- name: create internet gateway
+  ec2_vpc_igw:
+    vpc_id: "{{ vpc.vpc.id }}"
+    state: present
+    region: "{{ ec2_region }}"
+  register: igw
+ 
+- name: get route table id
+  ec2_vpc_route_table_facts:
+    region: "{{ ec2_region }}"
+    filters:
+      vpc-id: "{{ vpc.vpc.id }}"
+  register: route_table
+
+- name: set up route table
+  ec2_vpc_route_table:
+    vpc_id: "{{ vpc.vpc.id }}"
+    region: "{{ ec2_region }}"
+    route_table_id: "{{ route_table.route_tables[0].id }}"
+    lookup: id
+    purge_subnets: false
+    subnets:
+      - "{{ subnet.subnet.id }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gateway_id: "{{ igw.gateway_id }}"
+
+- name: create security group
+  ec2_group:
+    name: "{{ security_group }}"
+    description: Ansible demo group
+    vpc_id: "{{ vpc.vpc.id }}"
+    region: "{{ ec2_region }}"
+    rules:
+      - proto: tcp
+        from_port: 80
+        to_port: 80
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 5985
+        to_port: 5985
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 5986
+        to_port: 5986
+        cidr_ip: 0.0.0.0/0
+      - proto: tcp
+        from_port: 3389
+        to_port: 3389
+        cidr_ip: 0.0.0.0/0
+

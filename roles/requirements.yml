@@ -1,0 +1,3 @@
+- src: https://github.com/pharriso/ansible-linux-webserver
+
+- src: https://github.com/pharriso/ansible-windows-webserver

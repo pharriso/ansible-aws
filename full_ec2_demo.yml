@@ -1,0 +1,33 @@
+---
+
+- name: create aws vpc
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - aws_vpc
+
+- name: launch windows instance
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    ami_id: ami-0e60ba06451c1b981
+    ec2_instance_name: ansible-windows
+    os: windows
+  roles:
+    - aws_instances
+
+- name: launch linux instance
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    ami_id: ami-070df8759bc0f329a
+    ec2_instance_name: ansible-linux
+    os: linux
+  roles:
+    - aws_instances
+
+
+

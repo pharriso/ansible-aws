@@ -1,0 +1,6 @@
+---
+
+- name: install linux webserver
+  hosts: all
+  roles:
+    - ansible-linux-webserver

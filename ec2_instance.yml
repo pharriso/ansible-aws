@@ -1,0 +1,6 @@
+- name: launch windows instance
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - aws_instances
