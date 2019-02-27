@@ -15,6 +15,10 @@
     region: "{{ ec2_region }}"
   register: subnet
 
+- name: pass fact to next play
+  set_fact:
+     subnet: subnet
+
 - name: create internet gateway
   ec2_vpc_igw:
     vpc_id: "{{ vpc.vpc.id }}"
