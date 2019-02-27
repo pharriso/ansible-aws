@@ -15,9 +15,10 @@
     region: "{{ ec2_region }}"
   register: subnet
 
-- name: pass fact to next play
-  set_fact:
-     subnet: "{{ subnet }}"
+- name: pass fact when running in tower
+  set_stats:
+    data:
+      subnet: "{{ subnet }}"
 
 - name: create internet gateway
   ec2_vpc_igw:
