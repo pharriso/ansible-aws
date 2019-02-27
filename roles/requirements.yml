@@ -1,3 +1,5 @@
 - src: https://github.com/pharriso/ansible-linux-webserver.git
+  scm: git
 
 - src: https://github.com/pharriso/ansible-windows-webserver.git
+  scm: git
