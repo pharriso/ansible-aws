@@ -21,7 +21,7 @@
     state: present
     region: "{{ ec2_region }}"
   register: igw
- 
+
 - name: get route table id
   ec2_vpc_route_table_facts:
     region: "{{ ec2_region }}"
