@@ -1,0 +1,16 @@
+---
+
+- name: gather ec2 instances
+  ec2_instance_facts:
+    region: "{{ ec2_region }}"
+  register: instances
+
+- name: add instances to elb
+  elb_instance:
+    region: "{{ ec2_region }}"
+    instance_id: "{{ item.instance_id }}"
+    ec2_elbs: ansible-demo
+    state: present
+  with_items: "{{ instances.instances }}"
+
+
