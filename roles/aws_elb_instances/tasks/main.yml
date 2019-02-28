@@ -3,6 +3,8 @@
 - name: gather ec2 instances
   ec2_instance_facts:
     region: "{{ ec2_region }}"
+    filters: 
+      instance-state-name: "running"
   register: instances
 
 - name: add instances to elb
