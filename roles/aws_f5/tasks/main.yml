@@ -10,6 +10,7 @@
     network:
       assign_public_ip: true
     image_id: "{{ ami_id }}"
+    user_data: "{{ lookup('file', '{{ os }}-userdata') }}"
     region: "{{ ec2_region }}"
   register: ec2_instance
 
