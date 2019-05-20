@@ -1,6 +1,6 @@
 ---
 
-f5_ami: ami-fc285885
+ami_id: ami-fc285885
 instance_size: t2.large
 instance_count: 1
 port: 8443
