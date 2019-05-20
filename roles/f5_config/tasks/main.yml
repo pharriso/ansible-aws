@@ -23,6 +23,7 @@
     monitor_type: "and_list"
     validate_certs: "no"
   with_items: "{{ groups.tag_Name_ansible_bigip | first }}"
+  run_once: true
 
 - name: add nodes to pool
   bigip_pool_member:
@@ -53,3 +54,4 @@
     snat: "Automap"
     validate_certs: "no"
   with_items: "{{ groups.tag_Name_ansible_bigip | first }}"
+  run_once: true
