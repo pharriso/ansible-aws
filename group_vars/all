@@ -4,4 +4,3 @@ vpc_cidr: 10.10.0.0/16
 instance_size: t2.medium
 security_group: ansible-demo
 keypair: laptop
-

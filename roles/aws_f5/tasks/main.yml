@@ -1,6 +1,6 @@
 ---
 
-- name: launch ec2 instances
+- name: launch f5 instance
   ec2:
     key_name: "{{ keypair }}"
     vpc_subnet_id: "{{ subnet.subnet.id }}"
@@ -8,7 +8,6 @@
     group: "{{ security_group }}"
     assign_public_ip: yes
     image: "{{ ami_id }}"
-    user_data: "{{ lookup('file', '{{ os }}-userdata') }}"
     region: "{{ ec2_region }}"
     count: "{{ instance_count }}"
     wait: yes

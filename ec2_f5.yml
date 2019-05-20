@@ -1,6 +1,6 @@
-- name: launch instances
+- name: launch aws f5
   hosts: localhost
   connection: local
   gather_facts: false
   roles:
-    - aws_instances
+    - aws_f5
