@@ -46,7 +46,7 @@
     server_port: "8443"
     name: "ansible_virtual_server"
     destination: "{{ hostvars[item]['inventory_hostname'] }}"
-    port: "80"
+    port: "443"
     enabled_vlans: "all"
     all_profiles: ['http','clientssl','oneconnect']
     pool: "ansible_http_pool"
