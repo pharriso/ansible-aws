@@ -1,3 +1,3 @@
 #cloud-config
 runcmd:
-  - modify auth user admin password Redhat123
+  - tmsh modify auth user admin password Redhat123
