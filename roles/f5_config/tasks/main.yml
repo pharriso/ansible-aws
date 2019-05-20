@@ -1,5 +1,10 @@
 ---
 
+- name: update admin password
+  command: modify auth user admin password Redhat123
+  delegate_to: "{{ groups.tag_Name_ansible_bigip | first }}"
+  run_once: true
+
 - name: add nodes
   bigip_node:
     server: "{{ hostvars[item]['inventory_hostname'] }}"
