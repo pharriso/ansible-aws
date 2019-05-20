@@ -1,0 +1,11 @@
+---
+
+- name: add nodes to f5
+  bigip_node:
+    server: {{ hostvars[tag_Name_ansible_bigip]['inventory_hostname'] }}"
+    user: "{{ f5_user }}"
+    password: "{{ f5_password }}"
+    server_port: "8443"
+    host: "{{ inventory_hostname }}"
+    name: "{{ inventory_hostname }}"
+    validate_certs: "no"
