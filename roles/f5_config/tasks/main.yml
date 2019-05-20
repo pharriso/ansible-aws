@@ -1,7 +1,7 @@
 ---
 
 - name: update admin password
-  command: modify auth user admin password Redhat123
+  raw: modify auth user admin password Redhat123
   delegate_to: "{{ groups.tag_Name_ansible_bigip | first }}"
   run_once: true
 
