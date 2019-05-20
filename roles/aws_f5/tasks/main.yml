@@ -13,13 +13,3 @@
     user_data: "{{ lookup('file', '{{ os }}-userdata') }}"
     region: "{{ ec2_region }}"
   register: ec2_instance
-
-
-
-- name: Wait for port to come up
-  wait_for:
-    port: "{{ port }}"
-    delay: 10
-    sleep: 10
-    host: "{{ item.public_dns_name }}"
-  with_items: "{{ ec2_instance.instances }}"
