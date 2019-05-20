@@ -46,7 +46,7 @@
     password: "{{ f5_password }}"
     server_port: "8443"
     name: "ansible_virtual_server"
-    destination: "{{ hostvars[item]['inventory_hostname'] }}"
+    destination: "{{ hostvars[item]['ec2_private_ip_address'] }}"
     port: "443"
     enabled_vlans: "all"
     all_profiles: ['http','clientssl','oneconnect']
