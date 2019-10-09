@@ -13,7 +13,7 @@
     assign_public_ip: yes
     instance_tags:
        role: webserver
-  register: ec2_
+  register: ec2
 
 - name: wait for ssh to come up
   delegate_to: "{{ item.public_dns_name }}"
