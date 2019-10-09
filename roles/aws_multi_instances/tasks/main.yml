@@ -13,6 +13,10 @@
     assign_public_ip: yes
     instance_tags:
        role: webserver
+    count_tag:
+      role: webserver
+    exact_count: "{{ instance_count }}"
+
   register: ec2
 
 - name: wait for ssh
