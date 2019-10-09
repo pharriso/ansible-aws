@@ -7,7 +7,6 @@
     instance_type: "{{ instance_size }}"
     image: "{{ ami_id }}"
     wait: yes
-    count: "{{ instance_count }}"
     vpc_subnet_id: "{{ subnet.subnet.id }}"
     group: "{{ security_group }}"
     assign_public_ip: yes
