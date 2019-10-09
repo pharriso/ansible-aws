@@ -12,4 +12,7 @@
     group: "{{ security_group }}"
     assign_public_ip: yes
     user_data: "{{ lookup('file', '{{ os }}-userdata') }}"
+    instance_tags:
+       role: webserver
+
   register: ec2_instance
