@@ -13,5 +13,13 @@
     assign_public_ip: yes
     instance_tags:
        role: webserver
+  register: ec2_
 
-  register: ec2_instance
+- name: wait for ssh to come up
+  delegate_to: "{{ item.public_dns_name }}"
+  wait_for_connection:
+    delay: 60
+    timeout: 320
+  loop: "{{ ec2.instances }}"
+
+
