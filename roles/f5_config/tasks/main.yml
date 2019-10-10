@@ -15,6 +15,10 @@
     name: "{{ inventory_hostname }}"
     validate_certs: "no"
   with_items: "{{ groups.tag_Name_ansible_bigip | first }}"
+  register: f5_add_nodes
+  until: f5_add_nodes is not failed
+  retries: 5
+  delay: 20
 
 - name: create pool
   bigip_pool:

@@ -82,19 +82,3 @@
         from_port: 8443
         to_port: 8443
         cidr_ip: 0.0.0.0/0
-
-- name: create elb classic
-  elb_classic_lb:
-    name: "ansible-demo"
-    state: present
-    region: "{{ ec2_region }}"
-    security_group_names:
-      - "{{ security_group }}"
-    subnets: 
-      - "{{ subnet.subnet.id }}"
-    listeners:
-      - protocol: http 
-        load_balancer_port: 80
-        instance_port: 80
-        proxy_protocol: True
-  register: elb

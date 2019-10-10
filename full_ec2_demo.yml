@@ -6,33 +6,7 @@
   gather_facts: false
   roles:
     - aws_vpc
-
-- name: launch windows instance
-  hosts: localhost
-  connection: local
-  gather_facts: false
-  vars:
-    ami_id: ami-0e60ba06451c1b981
-    ec2_instance_name: ansible-windows
-    os: windows
-    port: 5985
-    instance_count: 0
-  roles:
-    - aws_instances
-
-- name: launch linux instance
-  hosts: localhost
-  connection: local
-  gather_facts: false
-  vars:
-    ami_id: ami-070df8759bc0f329a
-    ec2_instance_name: ansible-linux
-    ec2_size: a1.xlarge
-    os: linux
-    port: 22
-    instance_count: 2
-  roles:
-    - aws_instances
+    - aws_multi_instances
 
 
 
