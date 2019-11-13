@@ -17,7 +17,7 @@
   with_items: "{{ groups.tag_Name_ansible_bigip | first }}"
   register: f5_add_nodes
   until: f5_add_nodes is not failed
-  retries: 5
+  retries: 20
   delay: 20
 
 - name: create pool
