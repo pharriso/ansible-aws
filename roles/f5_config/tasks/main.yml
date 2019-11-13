@@ -12,9 +12,9 @@
       user: "{{ f5_user }}"
       password: "{{ f5_password }}"
       server_port: "8443"
+      validate_certs: "no"
     host: "{{ inventory_hostname }}"
     name: "{{ inventory_hostname }}"
-    validate_certs: "no"
   with_items: "{{ groups.tag_Name_ansible_bigip | first }}"
   register: f5_add_nodes
   until: f5_add_nodes is not failed
@@ -27,11 +27,11 @@
       server: "{{ hostvars[item]['inventory_hostname'] }}"
       user: "{{ f5_user }}"
       password: "{{ f5_password }}"
+      validate_certs: "no"
     name: "ansible_http_pool"
     lb_method: "round-robin"
     monitors: "/Common/http"
     monitor_type: "and_list"
-    validate_certs: "no"
   with_items: "{{ groups.tag_Name_ansible_bigip | first }}"
   run_once: true
 
@@ -41,12 +41,12 @@
       server: "{{ hostvars[item]['inventory_hostname'] }}"
       user: "{{ f5_user }}"
       password: "{{ f5_password }}"
+      validate_certs: "no"
     state: "present"
     name: "{{ inventory_hostname }}"
     host: "{{ inventory_hostname }}"
     port: "80"
     pool: "ansible_http_pool"
-    validate_certs: "no"
   with_items: "{{ groups.tag_Name_ansible_bigip | first }}"
 
 - name: add virtual server
@@ -55,6 +55,7 @@
       server: "{{ hostvars[item]['inventory_hostname'] }}"
       user: "{{ f5_user }}"
       password: "{{ f5_password }}"
+      validate_certs: "no"
     name: "ansible_virtual_server"
     destination: "{{ hostvars[item]['ec2_private_ip_address'] }}"
     port: "443"
@@ -62,6 +63,5 @@
     all_profiles: ['http','clientssl','oneconnect']
     pool: "ansible_http_pool"
     snat: "Automap"
-    validate_certs: "no"
   with_items: "{{ groups.tag_Name_ansible_bigip | first }}"
   run_once: true
