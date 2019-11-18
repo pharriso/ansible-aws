@@ -1,0 +1,26 @@
+---
+
+- name: create aws tower instance
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    os: linux 
+    instance_name: ansible-tower 
+    ami_id: ami-0de312f3226dd2820
+  roles:
+    - aws_vpc
+    - aws_instances
+  tasks:
+    - name: add tower hosts to play
+      add_host:
+        name: "{{ ec2.instances[0].public_ip_address }}"
+        groups:
+        - tower
+
+- name: configure tower hosts
+  hosts: tower
+  remote_user: ec2-user
+  roles:
+    - tower_install
+

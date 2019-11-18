@@ -2,7 +2,7 @@
 
 - name: launch ec2 instances
   ec2_instance:
-    name: "ansible-{{ os }}"
+    name: "{{ instance_name }}"
     key_name: "{{ keypair }}"
     vpc_subnet_id: "{{ subnet.subnet.id }}"
     instance_type: "{{ instance_size }}"
@@ -12,4 +12,10 @@
     image_id: "{{ ami_id }}"
     user_data: "{{ lookup('file', '{{ os }}-userdata') }}"
     region: "{{ ec2_region }}"
-  register: ec2_instance
+  register: ec2
+
+- name: wait for ssh
+  wait_for:
+    host: "{{ ec2.instances[0].public_ip_address }}"
+    port: 22
+    delay: 10

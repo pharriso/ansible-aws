@@ -1,0 +1,39 @@
+---
+
+- name: enable rhel extras
+  command: yum-config-manager --enable rhui-REGION-rhel-server-extras
+  become: yes
+  when: ansible_distribution_major_version == "7"
+
+- name: configure ansible
+  copy:
+    src: ansible.cfg
+    dest: "{{ ansible_user_dir }}"
+
+- name: Download tower tar file
+  unarchive:
+    src: https://releases.ansible.com/ansible-tower/setup-bundle/ansible-tower-setup-bundle-{{ tower_version }}.el{{ ansible_distribution_major_version }}.tar.gz
+    dest: "{{ ansible_user_dir }}"
+    remote_src: yes 
+
+- name: Find Tower directory
+  find: 
+    paths: "{{ ansible_user_dir }}"
+    patterns: ansible-tower-setup-* 
+    file_type: directory
+  register: tower_dir
+
+- name: Set tower version
+  set_fact:
+    tower_version: "{{ tower_dir.files[0].path.split('ansible-tower-setup-')[1] }}"
+
+- name: Template out inventory file
+  template:
+    src: inventory.j2
+    dest: "{{ ansible_user_dir }}/ansible-tower-setup-{{ tower_version }}/inventory"
+
+- name: Run tower installer
+  shell: cd "{{ ansible_user_dir }}"/ansible-tower-setup-{{ tower_version }} && ./setup.sh
+  args:
+    creates: /etc/systemd/system/multi-user.target.wants/supervisord.service
+  become: yes
