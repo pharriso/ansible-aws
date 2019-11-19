@@ -5,3 +5,5 @@
 - src: https://github.com/pharriso/ansible-windows-webserver.git
   name: ansible-windows-webserver
   scm: git
+
+- src: redhatinsights.insights-client
