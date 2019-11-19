@@ -1,0 +1,30 @@
+---
+
+- name: install insights client
+  yum:
+    name: insights-client
+    state: installed
+
+- name: edit insights config file
+  ini_file:
+    path: /etc/insights-client/insights-client.conf
+    section: insights-client
+    option: auto_config
+    value: False
+
+- name: add username to insights config file
+  ini_file:
+    path: /etc/insights-client/insights-client.conf
+    section: insights-client
+    option: username
+    value: "{{ insights_user }}"
+
+- name: add password to insights config file
+  ini_file:
+    path: /etc/insights-client/insights-client.conf
+    section: insights-client
+    option: password
+    value: "{{ insights_password }}"
+
+    #- name: register client
+ #shell: redhat-access-insights --register
