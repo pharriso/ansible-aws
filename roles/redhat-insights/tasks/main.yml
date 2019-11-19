@@ -26,5 +26,5 @@
     option: password
     value: "{{ insights_password }}"
 
-    #- name: register client
- #shell: redhat-access-insights --register
+- name: register client
+  shell: redhat-access-insights --register
