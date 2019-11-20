@@ -27,7 +27,7 @@
       table: sc_request
       number: "{{ snow_request }}"
       data:
-        work_notes: "Ansible Automation - Changed {{ member_name }} to state {{ member_state }} on F5 device {{ private_ip }}"
+        work_notes: "Ansible Automation - Changed {{ member_name }} to state {{ member_state }} on F5 device {{ ansible_host }}"
         state: 3
     delegate_to: localhost
     become: false
