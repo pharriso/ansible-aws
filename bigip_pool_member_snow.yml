@@ -8,15 +8,16 @@
 
   - name: manage pool member
     bigip_pool_member:
-      server: "{{ ansible_host }}"
-      user: "{{ f5_user }}"
-      password: "{{ f5_password }}"
-      server_port: "8443"
+      provider:
+        server: "{{ hostvars[item]['inventory_hostname'] }}"
+        user: "{{ f5_user }}"
+        password: "{{ f5_password }}"
+        server_port: "8443"
+        validate_certs: "no"
       pool: "{{ pool_name }}"
       state: "{{ member_state }}"
       port: 80
       address: "{{ member_name }}"
-      validate_certs: "no"
 
   - name: close servicenow request
     snow_record:
