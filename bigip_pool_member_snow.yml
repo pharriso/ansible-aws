@@ -1,0 +1,48 @@
+---
+- name: big-ip setup
+  hosts: tag_Name_ansible_bigip
+  connection: local
+  gather_facts: false
+
+  tasks:
+
+  - name: manage pool member
+    bigip_pool_member:
+      server: "{{ ansible_host }}"
+      user: "{{ f5_user }}"
+      password: "{{ f5_password }}"
+      server_port: "8443"
+      pool: "{{ pool_name }}"
+      state: "{{ member_state }}"
+      port: 80
+      address: "{{ member_name }}"
+      validate_certs: "no"
+
+  - name: close servicenow request
+    snow_record:
+      username: "{{ snow_user }}"
+      password: "{{ snow_password }}"
+      instance: "{{ snow_instance }}"
+      state: present
+      table: sc_request
+      number: "{{ snow_request }}"
+      data:
+        work_notes: "Ansible Automation - Changed {{ member_name }} to state {{ member_state }} on F5 device {{ private_ip }}"
+        state: 3
+    delegate_to: localhost
+    become: false
+
+  - name: close servicenow request item
+    snow_record:
+      username: "{{ snow_user }}"
+      password: "{{ snow_password }}"
+      instance: "{{ snow_instance }}"
+      state: present
+      table: sc_req_item
+      number: "RITM{{ snow_request.split('REQ')[1] }}"
+      data:
+        work_notes: "Ansible Automation - Changed {{ member_name }} to state {{ member_state }} on F5 device {{ private_ip }}"
+        state: 3
+    delegate_to: localhost
+    become: false
+
