@@ -6,7 +6,7 @@
   become: true
   vars:
     auto_config: false
-    insights_display_name: "{{ inventory_hostname }}"
+    insights_display_name: "pharriso-{{ inventory_hostname }}"
   roles:
     - redhatinsights.insights-client
 
