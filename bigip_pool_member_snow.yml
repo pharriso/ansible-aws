@@ -14,10 +14,10 @@
         password: "{{ f5_password }}"
         server_port: "8443"
         validate_certs: "no"
-      pool: "ansible_http_pool"
-      state: "{{ member_state }}"
-      port: 80
-      address: "{{ member_name }}"
+    pool: "ansible_http_pool"
+    state: "{{ member_state }}"
+    port: 80
+    address: "{{ member_name }}"
 
   - name: close servicenow request
     snow_record:
