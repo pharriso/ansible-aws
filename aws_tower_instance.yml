@@ -22,5 +22,5 @@
   hosts: tower
   remote_user: ec2-user
   roles:
-    - tower_install
-
+    - role: tower_install
+      tags: tower
