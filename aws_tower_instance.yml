@@ -7,10 +7,12 @@
   vars:
     os: linux 
     instance_name: ansible-tower 
+    dns_zone: pharriso.co.uk
     ami_id: ami-0de312f3226dd2820
   roles:
     - aws_vpc
     - aws_instances
+    - route53_record
   tasks:
     - name: add tower hosts to play
       add_host:

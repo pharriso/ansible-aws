@@ -1,0 +1,12 @@
+---
+
+- name: add tower dns entry
+  route53:
+      state: present
+      zone: "{{ dns_zone }}"
+      record: "{{ instance_name }}.{{ dns_zone }}"
+      type: A
+      ttl: 7200
+      value: "{{ ec2.instances[0].public_ip_address }}"
+      wait: no
+
