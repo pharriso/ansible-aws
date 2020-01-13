@@ -6,4 +6,3 @@
   become: true
   roles:
     - redhat-insights
-
