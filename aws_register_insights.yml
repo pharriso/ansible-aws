@@ -9,4 +9,3 @@
     insights_display_name: "{{ inventory_hostname }}"
   roles:
     - redhatinsights.insights-client
-
