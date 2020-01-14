@@ -44,4 +44,3 @@
         state: 3
     delegate_to: localhost
     become: false
-
