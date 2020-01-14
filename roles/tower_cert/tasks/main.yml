@@ -1,0 +1,28 @@
+---
+
+- name: get certbot
+  get_url:
+    url: https://dl.eff.org/certbot-auto
+    dest: "{{ ansible_user_dir }}"
+    mode: 0755
+
+- name: stop tower services so we can get cert
+  shell: ansible-tower-service stop
+
+- name: get cert from letsencrypt
+  shell: "{{ ansible_user_dir }}/certbot-auto certonly --standalone -d {{ instance_name }}.{{ dns_zone }} --email {{ letsencrypt_email }} -n --agree-tos"
+  register: issue_cert
+  until: issue_cert is not failed
+  retries: 5
+
+- name: copy ssl key and cert in place
+  copy:
+     remote_src: true
+     src: "/etc/letsencrypt/live/{{ instance_name }}.{{ dns_zone }}/{{ item.src_file }}"
+     dest: "{{ item.dest_file }}"
+  loop:
+    - { "src_file": "fullchain.pem", "dest_file": "/etc/tower/tower.cert" }
+    - { "src_file": "privkey.pem", "dest_file": "/etc/tower/tower.key" }
+
+- name: restart tower service
+  shell: ansible-tower-service start

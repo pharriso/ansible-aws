@@ -23,6 +23,10 @@
 - name: configure tower hosts
   hosts: tower
   remote_user: ec2-user
+  vars:
+    instance_name: ansible-tower 
+    dns_zone: pharriso.co.uk
   roles:
     - role: tower_install
       tags: tower
+    - { role: tower_cert, become: yes, tags: tower_cert }
