@@ -1,5 +1,11 @@
 ---
 
+- name: create password
+  debug:
+    msg: "{{ lookup('password', '~/tower_password chars=ascii_letters') }}"
+  register: password
+  delegate_to: localhost
+
 - name: enable rhel extras
   command: yum-config-manager --enable rhui-REGION-rhel-server-extras
   become: yes
