@@ -1,0 +1,7 @@
+---
+
+- name: install telnet client feature
+  win_dsc:
+    resource_name: WindowsFeature
+    Name: telnet-client
+

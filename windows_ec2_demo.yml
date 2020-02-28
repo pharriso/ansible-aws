@@ -7,6 +7,7 @@
   vars:
     port: 5986
     ami_id: ami-0a174bb076b94a327
+    instance_os: windows
   roles:
     - aws_vpc
     - aws_multi_instances

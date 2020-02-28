@@ -13,6 +13,7 @@
     user_data: "{{ lookup('file', 'userdata.txt') | default(omit) }}" 
     instance_tags:
        role: webserver
+       os: "{{ instance_os | default(linux) }}"
     count_tag:
       role: webserver
     exact_count: "{{ instance_count }}"

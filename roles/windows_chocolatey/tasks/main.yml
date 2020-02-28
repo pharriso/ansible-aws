@@ -1,0 +1,9 @@
+---
+
+- name: Install Apps
+  win_chocolatey:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - firefox
+    - putty.install

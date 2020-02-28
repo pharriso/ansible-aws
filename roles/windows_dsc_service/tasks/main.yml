@@ -1,0 +1,8 @@
+---
+
+- name: start snmp service
+  win_dsc:
+    resource_name: Service
+    Name: "SNMPTRAP"
+    State: "Running"
+    StartupType: "Manual"

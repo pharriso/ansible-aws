@@ -1,0 +1,9 @@
+---
+
+- name: manage local admins
+  win_dsc:
+    resource_name: Group
+    GroupName: Administrators
+    Ensure: Present
+    MembersToInclude: "{{ admin_users }}"
+
