@@ -10,7 +10,7 @@
     vpc_subnet_id: "{{ subnet.subnet.id }}"
     group: "{{ security_group }}"
     assign_public_ip: yes
-    userdata: "{{ lookup('file', 'userdata.txt') | default(omit) }}" 
+    user_data: "{{ lookup('file', 'userdata.txt') | default(omit) }}" 
     instance_tags:
        role: webserver
     count_tag:
@@ -21,7 +21,7 @@
 - name: wait for connection
   wait_for:
     host: "{{ item.public_ip }}"
-    port: "{{ port | default(22)"
+    port: "{{ port | default(22) }}"
     delay: 10
   loop: "{{ ec2.instances }}"
   loop_control:

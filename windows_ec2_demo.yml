@@ -1,4 +1,6 @@
-- name: launch instances
+---
+
+- name: create aws vpc
   hosts: localhost
   connection: local
   gather_facts: false
@@ -6,4 +8,8 @@
     port: 5986
     ami_id: ami-0a174bb076b94a327
   roles:
+    - aws_vpc
     - aws_multi_instances
+
+
+
