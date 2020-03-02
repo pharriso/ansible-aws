@@ -18,6 +18,7 @@
   until: f5_add_nodes is not failed
   retries: 20
   delay: 20
+  delegate_to: localhost
 
 - name: create pool
   bigip_pool:
