@@ -32,6 +32,7 @@
     monitor_type: "and_list"
   with_items: "{{ groups.tag_Name_ansible_bigip | first }}"
   run_once: true
+  delegate_to: localhost
 
 - name: add nodes to pool
   bigip_pool_member:
@@ -45,6 +46,7 @@
     port: "80"
     pool: "ansible_http_pool"
   with_items: "{{ groups.tag_Name_ansible_bigip | first }}"
+  delegate_to: localhost
 
 - name: add virtual server
   bigip_virtual_server:
@@ -61,3 +63,4 @@
     snat: "Automap"
   with_items: "{{ groups.tag_Name_ansible_bigip | first }}"
   run_once: true
+  delegate_to: localhost
