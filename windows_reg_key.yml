@@ -1,0 +1,11 @@
+---
+
+- hosts: all
+  gather_facts: true
+  vars:
+    ansible_connection: winrm
+    ansible_winrm_server_cert_validation: ignore
+    ansible_winrm_transport: ntlm
+  roles:
+    - windows_reg_key
+  

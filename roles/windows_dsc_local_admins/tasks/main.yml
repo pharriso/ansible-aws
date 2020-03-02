@@ -1,9 +1,15 @@
 ---
 
+- name: add local user
+  win_user:
+    name: pharriso
+    password: Redhat123
+    state: present
+
 - name: manage local admins
   win_dsc:
     resource_name: Group
     GroupName: Administrators
     Ensure: Present
-    MembersToInclude: "{{ admin_users }}"
+    MembersToInclude: pharriso
 
