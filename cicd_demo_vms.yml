@@ -1,0 +1,60 @@
+---
+
+- name: create aws vpc
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    instance_count: 3
+  roles:
+    - aws_vpc
+    - aws_multi_instances
+  tasks:
+  - name: add tag to runner vm
+    ec2_tag:
+      region: "{{ ec2_region }}"
+      resource: "{{ ec2.instances[0].id }}"
+      state: present
+      tags:
+        cicd: runner
+
+  - name: add tag to prod vm
+    ec2_tag:
+      region: "{{ ec2_region }}"
+      resource: "{{ ec2.instances[1].id }}"
+      state: present
+      tags:
+        cicd: prod
+
+  - name: add tag to dev vm
+    ec2_tag:
+      region: "{{ ec2_region }}"
+      resource: "{{ ec2.instances[2].id }}"
+      state: present
+      tags:
+        cicd: dev
+
+  - name: add gitlab runner hosts to play
+    add_host:
+      name: "{{ ec2.instances[0].public_ip }}"
+      groups:
+      - gitlab-runner
+
+- name: configure gitlab runner
+  hosts: gitlab-runner
+  remote_user: ec2-user
+  become: yes
+  tasks:
+  - name: enable awx-cli repo
+    shell: dnf config-manager --add-repo https://releases.ansible.com/ansible-tower/cli/ansible-tower-cli-el8.repo
+
+  - name: install awx-cli
+    dnf:
+      name: ansible-tower-cli
+      state: present
+
+  - name: install ansible lint
+    pip:
+      name: ansible-lint
+
+
