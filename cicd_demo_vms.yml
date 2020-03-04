@@ -57,4 +57,16 @@
     pip:
       name: ansible-lint
 
+  - name: get gitlab-runner binary
+    get_url:
+      url: https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64
+      dest: /usr/local/bin/gitlab-runner
+      mode: 0755
 
+  - name: add gitlab-runner user
+    user:
+      name: gitlab-runner
+      comment: gitlab runner
+
+  - name: install gitlab runner
+    shell: gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
