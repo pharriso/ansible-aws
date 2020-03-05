@@ -9,6 +9,7 @@
     instance_name: ansible-tower 
     dns_zone: pharriso.co.uk
     ami_id: ami-0de312f3226dd2820
+    termination_protection: true
   roles:
     - aws_vpc
     - aws_instances
