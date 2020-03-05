@@ -1,0 +1,23 @@
+---
+
+- name: configure apache on rhel and suse
+  hosts: all
+  tasks:
+  - name: install apache on rhel
+    yum:
+      name: httpd
+      state: present
+    when: ansible_os_family == 'RedHat'
+
+  - name: install apache on suse
+    zypper:
+      name: httpd
+      state: present
+    when: ansible_os_family == 'Suse'
+
+  - name: start and enable apache
+    service:
+      name: httpd
+      state: started
+      enabled: yes
+

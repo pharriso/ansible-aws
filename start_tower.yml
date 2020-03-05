@@ -1,0 +1,19 @@
+---
+
+- name: start tower and update route53 dns
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    dns_zone: pharriso.co.uk
+    instance_name: ansible-tower
+  pre_tasks:
+  - name: start tower
+    ec2:
+      instance_tags:
+        Name: "{{ ansible_tower }}"
+      state: running
+    register: ec2
+
+  roles:
+  - route53_record
