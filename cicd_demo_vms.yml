@@ -74,10 +74,10 @@
       comment: gitlab runner
 
   - name: install gitlab runner
-    shell: gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
+    shell: /usr/local/bin/gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
 
-  - debug: register runner command
-      msg: /usr/local/bin/gitlab-runner register (use cicd-demo tag)
+  - debug: 
+      msg: "/usr/local/bin/gitlab-runner register (use cicd-demo tag)"
 
-  - debug: start runner command
-      msg: /usr/local/bin/gitlab-runner start
+  - debug: 
+      msg: "/usr/local/bin/gitlab-runner start"

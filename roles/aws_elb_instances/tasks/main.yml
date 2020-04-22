@@ -7,7 +7,7 @@
       instance-state-name: "running"
   register: instances
 
-- name: add instances to elb
+- name: add instance to elb
   elb_instance:
     region: "{{ ec2_region }}"
     instance_id: "{{ item.instance_id }}"

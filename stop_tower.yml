@@ -1,0 +1,16 @@
+---
+
+- name: stop tower
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    dns_zone: pharriso.co.uk
+    instance_name: ansible-tower
+  tasks:
+  - name: stop tower
+    ec2:
+      region: "{{ ec2_region }}"
+      instance_tags:
+        Name: "{{ instance_name }}"
+      state: stopped
