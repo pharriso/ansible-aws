@@ -6,4 +6,3 @@
   gather_facts: false
   roles:
     - aws_vpc
-
