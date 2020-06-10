@@ -13,6 +13,11 @@
     user_data: "{{ lookup('file', '{{ os }}-userdata') }}"
     region: "{{ ec2_region }}"
     termination_protection: "{{ termination_protection | default('false') }}"
+    volumes:
+    - device_name: /dev/sda1
+      ebs:
+        volume_size: 40
+        delete_on_termination: true
   register: ec2
 
 - name: wait for ssh

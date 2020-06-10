@@ -1,0 +1,16 @@
+---
+
+- name: create aws tower instance
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    os: linux 
+    instance_name: rocketchat
+    dns_zone: pharriso.co.uk
+    ami_id: ami-0b850cf02cc00fdc8
+    termination_protection: false
+  roles:
+    - aws_vpc
+    - aws_instances
+    - route53_record
