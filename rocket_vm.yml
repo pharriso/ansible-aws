@@ -6,7 +6,7 @@
   gather_facts: false
   vars:
     os: linux 
-    instance_name: rocketchat
+    instance_name: rocket
     dns_zone: pharriso.co.uk
     ami_id: ami-0b850cf02cc00fdc8
     termination_protection: false
