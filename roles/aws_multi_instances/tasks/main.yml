@@ -28,5 +28,8 @@
   loop_control:
     label: "{{ item.public_ip }}"
 
-
+- name: pass fact when running in tower
+  set_stats:
+    data:
+      ec2: "{{ ec2 }}"
 

@@ -9,10 +9,14 @@
     table: sc_request
     number: "{{ snow_request }}"
     data:
-      work_notes: "Ansible Automation - change implemented"
+      work_notes: "Built host with IP - {{ item.public_ip }}"
       state: 3
   delegate_to: localhost
   become: false
+  loop: "{{ ec2.instances }}"
+  loop_control:
+    label: "{{ item.public_ip }}"
+
 
 - name: close servicenow request item
   snow_record:
