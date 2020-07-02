@@ -27,7 +27,7 @@
     table: sc_req_item
     number: "RITM{{ snow_request.split('REQ')[1] }}"
     data:
-      work_notes: "Ansible Automation - change implemented"
+      work_notes: "Built host with IP - {{ item.public_ip }}"
       state: 3
   delegate_to: localhost
   become: false
