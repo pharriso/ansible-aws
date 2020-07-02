@@ -1,0 +1,8 @@
+---
+
+- name: close snow change
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - snow_close_change
