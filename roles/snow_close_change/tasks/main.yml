@@ -31,4 +31,6 @@
       state: 3
   delegate_to: localhost
   become: false
-
+  loop: "{{ ec2.instances }}"
+  loop_control:
+    label: "{{ item.public_ip }}"
