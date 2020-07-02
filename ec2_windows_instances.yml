@@ -4,7 +4,7 @@
   gather_facts: false
   vars:
     port: 5986
-    ami_id: ami-0a174bb076b94a327
+    ami_id: ami-076c188b0006a9c1c
     instance_os: windows
   roles:
     - aws_multi_instances
