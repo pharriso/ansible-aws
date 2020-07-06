@@ -4,7 +4,6 @@
   gather_facts: true
   roles:
     - windows_dsc_local_admins
-    - windows_dsc_telnet
     - windows_reg_key
     - windows_dsc_service
   
