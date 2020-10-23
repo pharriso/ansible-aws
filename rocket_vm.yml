@@ -6,9 +6,9 @@
   gather_facts: false
   vars:
     os: linux 
-    instance_name: rocket
+    instance_name: labguide
     dns_zone: pharriso.co.uk
-    ami_id: ami-0b850cf02cc00fdc8
+    ami_id: ami-08f4717d06813bf00
     termination_protection: false
   roles:
     - aws_vpc
