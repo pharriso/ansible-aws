@@ -1,0 +1,4 @@
+- name: update cmdb
+  hosts: all
+  roles:
+    - update_cmdb

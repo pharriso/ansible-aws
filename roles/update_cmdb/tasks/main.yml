@@ -1,0 +1,24 @@
+---
+
+- name: update cmdb
+  snow_record:
+    username: "{{ snow_user }}"
+    password: "{{ snow_password }}"
+    instance: "{{ snow_instance }}"
+    state: present
+    table: cmdb_ci_linux_server
+    data:
+      name: "{{ ansible_fqdn }}"
+      sys_class_name: cmdb_ci_linux_server
+      fqdn: "{{ ansible_fqdn }}"
+      ip_address: "{{ inventory_hostname }}"
+      cpu_count: "{{ ansible_processor_vcpus }}"
+      ram: "{{ ansible_memory_mb.real.total }}"
+      os: "{{ ansible_system }} {{ ansible_distribution_file_search_string }}"
+      os_version: "{{ ansible_distribution_version }}"
+      u_patch_window: "{{ patch_window }}"
+      cpu_type: Intel
+      os_domain: "{{ ansible_fqdn.split('.', 1)[1] }}"
+      host_name: "{{ ansible_fqdn.split('.')[0] }}"
+  delegate_to: localhost
+
