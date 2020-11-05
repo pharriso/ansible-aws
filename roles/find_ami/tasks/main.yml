@@ -1,0 +1,18 @@
+---
+
+- name: find ami
+  ec2_ami_info:
+    region: "{{ ec2_region }}"
+    owners: "{{ ami_find[os].owners }}"
+    filters:
+      name: "{{ ami_find[os].filter }}"
+      architecture: "{{ ami_find[os].architecture }}"
+  register: amis
+
+- name: get latest ami image details
+  set_fact:
+    ami: "{{ amis.images | selectattr('name', 'defined') | sort(attribute='creation_date') | last }}"
+
+- name: get latest ami image details
+  set_fact:
+    ami_id: "{{ ami.image_id }}"

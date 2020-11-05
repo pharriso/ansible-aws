@@ -1,0 +1,8 @@
+---
+
+- name: find ami
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - find_ami

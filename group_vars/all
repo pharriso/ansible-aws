@@ -5,3 +5,16 @@ instance_size: t2.medium
 security_group: ansible-demo
 keypair: laptop
 letsencrypt_email: pharriso@redhat.com
+instance_info:
+  rhel8:
+    owners: 309956199498
+    os_type: linux
+    architecture: x86_64
+    filter: 'RHEL-8*HVM-*Hourly*'
+    port: 22
+  rhel7:
+    owners: 309956199498
+    os_type: linux
+    architecture: x86_64
+    filter: 'RHEL-7*HVM-*Hourly*'
+    port: 22

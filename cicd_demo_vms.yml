@@ -44,40 +44,5 @@
   hosts: gitlab-runner
   remote_user: ec2-user
   become: yes
-  tasks:
-  - name: install git
-    dnf:
-      name: git
-      state: present
-
-  - name: enable awx-cli repo
-    shell: dnf config-manager --add-repo https://releases.ansible.com/ansible-tower/cli/ansible-tower-cli-el8.repo
-
-  - name: install awx-cli
-    dnf:
-      name: ansible-tower-cli
-      state: present
-
-  - name: install ansible lint
-    pip:
-      name: ansible-lint
-
-  - name: get gitlab-runner binary
-    get_url:
-      url: https://gitlab-runner-downloads.s3.amazonaws.com/latest/binaries/gitlab-runner-linux-amd64
-      dest: /usr/local/bin/gitlab-runner
-      mode: 0755
-
-  - name: add gitlab-runner user
-    user:
-      name: gitlab-runner
-      comment: gitlab runner
-
-  - name: install gitlab runner
-    shell: /usr/local/bin/gitlab-runner install --user=gitlab-runner --working-directory=/home/gitlab-runner
-
-  - debug: 
-      msg: "/usr/local/bin/gitlab-runner register (use cicd-demo tag)"
-
-  - debug: 
-      msg: "/usr/local/bin/gitlab-runner start"
+  roles:
+  - gitlab-runner

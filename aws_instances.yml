@@ -1,0 +1,7 @@
+- name: launch instances
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - find_ami
+    - aws_multi_instances
