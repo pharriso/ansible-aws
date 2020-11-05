@@ -3,10 +3,10 @@
 - name: find ami
   ec2_ami_info:
     region: "{{ ec2_region }}"
-    owners: "{{ ami_find[os].owners }}"
+    owners: "{{ instance_info[os].owners }}"
     filters:
-      name: "{{ ami_find[os].filter }}"
-      architecture: "{{ ami_find[os].architecture }}"
+      name: "{{ instance_info[os].filter }}"
+      architecture: "{{ instance_info[os].architecture }}"
   register: amis
 
 - name: get latest ami image details
