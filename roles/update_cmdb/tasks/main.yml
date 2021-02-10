@@ -16,7 +16,7 @@
       ram: "{{ ansible_memory_mb.real.total }}"
       os: "{{ ansible_system }} {{ ansible_distribution_file_search_string }}"
       os_version: "{{ ansible_distribution_version }}"
-      u_patch_window: "{{ patch_window }}"
+      u_patch_window: "{{ patch_window | default(omit) }}"
       cpu_type: Intel
       os_domain: "{{ ansible_fqdn.split('.', 1)[1] }}"
       host_name: "{{ ansible_fqdn.split('.')[0] }}"
