@@ -1,24 +1,20 @@
 ---
 
-- name: update cmdb
-  snow_record:
-    username: "{{ snow_user }}"
-    password: "{{ snow_password }}"
-    instance: "{{ snow_instance }}"
-    state: present
-    table: cmdb_ci_linux_server
-    data:
-      name: "{{ ansible_fqdn }}"
-      sys_class_name: cmdb_ci_linux_server
-      fqdn: "{{ ansible_fqdn }}"
+- name: add hosts to cmdb
+  servicenow.itsm.configuration_item:
+    instance:
+      username: "{{ snow_user }}"
+      password: "{{ snow_password }}"
+      host: "{{ snow_instance }}"
+    name: "{{ ansible_fqdn }}"
+    class: cmdb_ci_linux_server
+    other:
       ip_address: "{{ inventory_hostname }}"
       cpu_count: "{{ ansible_processor_vcpus }}"
       ram: "{{ ansible_memory_mb.real.total }}"
       os: "{{ ansible_system }} {{ ansible_distribution_file_search_string }}"
       os_version: "{{ ansible_distribution_version }}"
-      u_patch_window: "{{ patch_window | default(omit) }}"
-      cpu_type: Intel
       os_domain: "{{ ansible_fqdn.split('.', 1)[1] }}"
       host_name: "{{ ansible_fqdn.split('.')[0] }}"
+      u_patch_window: "{{ patch_window | default(omit) }}"
   delegate_to: localhost
-
