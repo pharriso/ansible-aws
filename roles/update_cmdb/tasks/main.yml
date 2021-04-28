@@ -7,7 +7,7 @@
       password: "{{ snow_password }}"
       host: "{{ snow_instance }}"
     name: "{{ ansible_fqdn }}"
-    class: cmdb_ci_linux_server
+    sys_class_name: cmdb_ci_linux_server
     other:
       ip_address: "{{ inventory_hostname }}"
       cpu_count: "{{ ansible_processor_vcpus }}"
