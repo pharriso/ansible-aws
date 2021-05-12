@@ -13,6 +13,7 @@
     vpc_id: "{{ vpc.vpc.id }}"
     cidr: "{{ vpc_cidr }}"
     region: "{{ ec2_region }}"
+    map_public: true
   register: subnet
 
 - name: pass fact when running in tower
@@ -28,7 +29,7 @@
   register: igw
 
 - name: get route table id
-  ec2_vpc_route_table_facts:
+  ec2_vpc_route_table_info:
     region: "{{ ec2_region }}"
     filters:
       vpc-id: "{{ vpc.vpc.id }}"

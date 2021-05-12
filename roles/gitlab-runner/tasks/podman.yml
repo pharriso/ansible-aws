@@ -1,0 +1,28 @@
+---
+
+- name: install conmon workaround until rhel 8.4
+  yum:
+    name: conmon-2.0.20-2.module+el8.3.0+8221+97165c3f
+    state: installed
+
+- name: install pre-reqs
+  yum:
+    name:
+      - podman
+    state: installed
+  register: installed_podman
+
+- name: configure podman rootless
+  sysctl:
+    name: user.max_user_namespaces
+    sysctl_file: /etc/sysctl.d/userns.conf
+    value: '28633'
+    sysctl_set: yes
+    state: present
+    reload: yes
+
+- name: refresh podman
+  command: podman system migrate
+  become: yes
+  become_user: gitlab-runner
+  when: installed_podman is changed

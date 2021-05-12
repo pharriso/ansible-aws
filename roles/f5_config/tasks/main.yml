@@ -1,9 +1,12 @@
 ---
 
 - name: update admin password
-  raw: modify auth user admin password Redhat123
-  delegate_to: "{{ groups.tag_Name_ansible_bigip | first }}"
-  run_once: true
+  bigip_command:
+    provider:
+      ssh_keyfile: ~/.ssh/id_rsa
+      transport: cli
+      user: admin
+    commands: "modify auth user admin password R3dhatDemo1"
 
 - name: add nodes
   bigip_node:
