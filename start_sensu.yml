@@ -1,0 +1,29 @@
+---
+
+- name: start tower and update route53 dns
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    dns_zone: pharriso.co.uk
+    instance_name: sensu
+  pre_tasks:
+  - name: start sensu
+    ec2:
+      region: "{{ ec2_region }}"
+      instance_tags:
+        Name: "{{ instance_name }}"
+      state: running
+
+  - name: get instance ip
+    ec2_instance_info:
+      region: "{{ ec2_region }}"
+      filters:
+        "tag:Name": "{{ instance_name }}"
+    register: ec2
+    until: ec2.instances[0].public_ip_address | ipaddr
+    retries: 20
+    delay: 3
+
+  roles:
+  - route53_record
