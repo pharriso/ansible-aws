@@ -13,10 +13,10 @@
 
 - name: backup ansible tower
   shell: |
-    cd "{{ ansible_user_dir }}"/ansible-tower-setup-{{ tower_version }} 
+    cd "{{ ansible_user_dir }}/ansible-tower-setup-{{ tower_version }}"
     ./setup.sh -b
 
 - name: fetch tar file
   fetch:
-    src: "{{ ansible_user_dir }}"/ansible-tower-setup-{{ tower_version }}/tower-backup-latest.tar.gz
+    src: "{{ ansible_user_dir }}/ansible-tower-setup-{{ tower_version }}/tower-backup-latest.tar.gz"
     dest: /tmp/tower-backup-latest.tar.gz
