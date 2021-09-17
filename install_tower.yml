@@ -1,0 +1,7 @@
+---
+
+- name: configure tower hosts
+  hosts: tower
+  roles:
+    - role: tower_install
+      tags: tower
