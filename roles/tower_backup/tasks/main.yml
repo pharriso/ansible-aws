@@ -1,0 +1,22 @@
+---
+
+- name: find tower directory
+  find:
+    paths: "{{ ansible_user_dir }}"
+    patterns: ansible-tower-setup-*
+    file_type: directory
+  register: tower_dir
+
+- name: set tower version
+  set_fact:
+    tower_version: "{{ tower_dir.files[0].path.split('ansible-tower-setup-')[1] }}"
+
+- name: backup ansible tower
+  shell: |
+    cd "{{ ansible_user_dir }}"/ansible-tower-setup-{{ tower_version }} 
+    ./setup.sh -b
+
+- name: fetch tar file
+  fetch:
+    src: "{{ ansible_user_dir }}"/ansible-tower-setup-{{ tower_version }}/tower-backup-latest.tar.gz
+    dest: /tmp/tower-backup-latest.tar.gz
