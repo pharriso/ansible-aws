@@ -11,13 +11,12 @@
   set_fact:
     tower_version: "{{ tower_dir.files[0].path.split('ansible-tower-setup-')[1] }}"
 
-- name: backup ansible tower
+- name: copy across backup file
+  copy:
+    src: /tmp/tower-backup-latest.tar.gz
+    dest: "{{ ansible_user_dir }}/ansible-tower-setup-{{ tower_version }}/tower-backup-latest.tar.gz"
+
+- name:  ansible tower restore
   shell: |
     cd "{{ ansible_user_dir }}/ansible-tower-setup-{{ tower_version }}"
-    ./setup.sh -b
-
-- name: fetch tar file
-  fetch:
-    src: "{{ ansible_user_dir }}/ansible-tower-setup-{{ tower_version }}/tower-backup-latest.tar.gz"
-    dest: /tmp/tower-backup-latest.tar.gz
-    flat: true
+    ./setup.sh -r

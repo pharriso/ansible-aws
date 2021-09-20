@@ -1,0 +1,6 @@
+---
+
+- name: backup tower
+  hosts: all
+  roles:
+    - role: tower_restore
