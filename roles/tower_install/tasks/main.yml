@@ -28,6 +28,4 @@
 
 - name: run tower installer
   shell: cd "{{ ansible_user_dir }}"/ansible-tower-setup-{{ tower_version }} && ./setup.sh
-  args:
-    creates: /etc/systemd/system/multi-user.target.wants/supervisord.service
   become: yes
