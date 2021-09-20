@@ -16,11 +16,8 @@
     cd "{{ ansible_user_dir }}/ansible-tower-setup-{{ tower_version }}"
     ./setup.sh -b
 
-- name: upload ansible backup to azure blob
-  azure_rm_storageblob:
-    resource_group: ansibledemo
-    storage_account_name: ansibledemo
-    container: ansiblebackup
-    blob: tower-backup-latest.tar.gz
-    src: /tmp/tower-backup-latest.tar.gz
-    public_access: container
+- name: fetch tar file
+  fetch:
+    src: "{{ ansible_user_dir }}/ansible-tower-setup-{{ tower_version }}/tower-backup-latest.tar.gz"
+    dest: /tmp/tower-backup-latest.tar.gz
+    flat: true
