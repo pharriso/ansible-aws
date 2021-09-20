@@ -17,3 +17,11 @@
   roles:
     - role: tower_restore
     - role: snow_close_migrate
+
+- name: stop tower on the source vm
+  hosts: "{{ source_tower }}"
+  tasks:
+    - name: stop tower service
+      service:
+        name: ansible-tower
+        state: stopped
