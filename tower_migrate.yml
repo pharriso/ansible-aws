@@ -1,18 +1,18 @@
 ---
 
-- name: configure tower hosts
+- name: install Ansible Tower application
   hosts: "{{ target_tower }}"
   vars:
     create_preload_data: false
   roles:
     - role: tower_install
 
-- name: backup tower
+- name: backup tower on source vm
   hosts: "{{ source_tower }}"
   roles:
     - role: tower_backup
 
-- name: restore tower
+- name: restore tower on target vm
   hosts: "{{ target_tower }}"
   roles:
     - role: tower_restore
