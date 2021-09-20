@@ -1,6 +1,6 @@
 ---
 
 - name: backup tower
-  hosts: all
+  hosts: "{{ target_tower }}"
   roles:
     - role: tower_restore

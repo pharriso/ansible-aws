@@ -1,7 +1,7 @@
 ---
 
 - name: configure tower hosts
-  hosts: all
+  hosts: "{{ target_tower }}"
   vars:
     create_preload_data: false
   roles:
