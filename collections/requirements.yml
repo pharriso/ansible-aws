@@ -3,3 +3,4 @@ collections:
 
 - name: servicenow.itsm
 - name: f5networks.f5_modules
+- name: servicenow.servicenow
