@@ -1,0 +1,29 @@
+---
+
+- name: close servicenow request
+  snow_record:
+    username: "{{ snow_user }}"
+    password: "{{ snow_password }}"
+    instance: "{{ snow_instance }}"
+    state: present
+    table: sc_request
+    number: "{{ snow_request }}"
+    data:
+      work_notes: "Migrated application to {{ target_tower }}"
+      state: 3
+  delegate_to: localhost
+  become: false
+
+- name: close servicenow request item
+  snow_record:
+    username: "{{ snow_user }}"
+    password: "{{ snow_password }}"
+    instance: "{{ snow_instance }}"
+    state: present
+    table: sc_req_item
+    number: "RITM{{ snow_request.split('REQ')[1] }}"
+    data:
+      work_notes: "Migrated application to {{ target_tower }}"
+      state: 3
+  delegate_to: localhost
+  become: false

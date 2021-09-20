@@ -16,3 +16,4 @@
   hosts: "{{ target_tower }}"
   roles:
     - role: tower_restore
+    - role: snow_close_migrate
